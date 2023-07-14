@@ -56,6 +56,24 @@ No mismatch detected for color.
 
 ### Multiple packages
 
+#### For Windows Users (hybridview)
+
+Install the nip npm package globally. It's used to alter the output list stream on the fly. 
+
+```
+npm install nip -g
+```
+
+Run the command below from your project directory (having package.json) to generate a compatible packages.list. List should just contain the package names, one per line.
+
+```
+npm ls --depth=0 --parseable | sort -u | nip 'return line.replace(/\\/g, \"/\").split(/node_modules\//)[1];' > packages.list
+```
+
+Next, copy the packages.list file to this directory and run ./check_packages.ps1
+
+#### For Linux Users
+
 `check_packages.sh` is a wrapper script which reads a list of packages to check from a `packages.list` file. Add the packages you want to check to this file, one package per line, and start the script:
 
 ```
